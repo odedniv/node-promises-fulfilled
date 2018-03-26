@@ -1,6 +1,6 @@
 {
   "name": "promises-fulfilled",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Given an array of promises, returns a promise that is resolved/rejected once ALL of the promises are fulfilled.",
   "main": "index.js",
   "scripts": {

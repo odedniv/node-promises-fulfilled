@@ -17,18 +17,27 @@ function promisesFulfilled(promises) {
     }
 
     promises.forEach(function (promise, i) {
-      promise
-        .then(function (result) {
-          results[i] = result;
-          finished++;
-          checkFinished();
-        })
-        .catch(function (err) {
-          error = true;
-          firstErr = firstErr || err;
-          finished++;
-          checkFinished();
-        });
+      if (promise && promise.then && {}.toString.call(promise.then) === '[object Function]') {
+        // it's a promise
+        promise
+          .then(
+            function (result) {
+              results[i] = result;
+              finished++;
+              checkFinished();
+            },
+            function (err) {
+              error = true;
+              firstErr = firstErr || err;
+              finished++;
+              checkFinished();
+            }
+          );
+      } else {
+        // not a promise
+        results[i] = promise;
+        finished++;
+      }
     });
 
     checkFinished();
